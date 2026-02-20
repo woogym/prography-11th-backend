@@ -1,4 +1,4 @@
-package com.woojin.prography_assignment.support;
+package com.woojin.prography_assignment.global;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
