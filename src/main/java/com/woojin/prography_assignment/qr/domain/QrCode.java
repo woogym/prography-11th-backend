@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class QRCode extends BaseTimeEntity {
+public class QrCode extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class QRCode extends BaseTimeEntity {
 
     private static final int EXPIRATION_HOURS = 24;
 
-    private QRCode(Session session, LocalDateTime now) {
+    private QrCode(Session session, LocalDateTime now) {
         validateCreation(session);
 
         this.session = session;
@@ -49,8 +49,8 @@ public class QRCode extends BaseTimeEntity {
         this.expiresAt = now.plusHours(EXPIRATION_HOURS);
     }
 
-    public static QRCode create(Session session, LocalDateTime now) {
-        return new QRCode(session, now);
+    public static QrCode create(Session session, LocalDateTime now) {
+        return new QrCode(session, now);
     }
 
     public boolean isExpired(LocalDateTime now) {
