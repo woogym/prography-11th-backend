@@ -14,7 +14,7 @@ import com.woojin.prography_assignment.common.exception.model.EntityNotFoundExce
 import com.woojin.prography_assignment.deposit.domain.DepositHistory;
 import com.woojin.prography_assignment.deposit.repository.DepositRepository;
 import com.woojin.prography_assignment.member.domain.Member;
-import com.woojin.prography_assignment.member.dto.MemberCreateRequest;
+import com.woojin.prography_assignment.member.dto.CreateMemberRequest;
 import com.woojin.prography_assignment.member.dto.MemberResponse;
 import com.woojin.prography_assignment.member.repository.MemberRepository;
 import lombok.AccessLevel;
@@ -38,7 +38,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public MemberResponse createMember(MemberCreateRequest request) {
+    public MemberResponse createMember(CreateMemberRequest request) {
         validateLoginIdUnique(request.loginId());
 
         Cohort cohort = findCohortById(request.cohortId());

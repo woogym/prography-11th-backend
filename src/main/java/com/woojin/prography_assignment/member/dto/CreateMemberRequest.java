@@ -1,10 +1,9 @@
 package com.woojin.prography_assignment.member.dto;
 
-import com.woojin.prography_assignment.member.domain.Member;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record MemberCreateRequest(
+public record CreateMemberRequest(
 
         @NotBlank(message = "로그인 ID는 필수입니다.")
         String loginId,
