@@ -13,13 +13,13 @@ public record MemberResponse(
         String loginId,
         String name,
         String phone,
-        MemberStatus memberStatus,
-        MemberRole memberRole,
+        MemberStatus status,
+        MemberRole role,
         Integer generation,
         String partName,
         String teamName,
         LocalDateTime createdAt,
-        LocalDateTime updateAt
+        LocalDateTime updatedAt
 ) {
 
     public static MemberResponse from(Member member, CohortMember cohortMember) {
