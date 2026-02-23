@@ -3,6 +3,7 @@ package com.woojin.prography_assignment.cohort.domain;
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.BusinessException;
+import com.woojin.prography_assignment.common.exception.model.InvalidInputException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,8 +40,7 @@ public class Cohort extends BaseTimeEntity {
 
     private void validateCohortNumber(Integer cohortNumber) {
         if (cohortNumber == null || cohortNumber < 0) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 기수는 음수일 수 없습니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "기수는 음수일 수 없습니다.");
         }
     }
 }

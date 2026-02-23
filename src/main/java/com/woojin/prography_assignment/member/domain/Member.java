@@ -4,6 +4,7 @@ package com.woojin.prography_assignment.member.domain;
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.BusinessException;
+import com.woojin.prography_assignment.common.exception.model.InvalidInputException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -113,29 +114,25 @@ public class Member extends BaseTimeEntity {
 
     private void validateLoginId(String loginId) {
         if (loginId == null || loginId.isBlank()) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 로그인 ID는 필수입니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "로그인 ID는 필수입니다.");
         }
     }
 
     private void validatePassword(String password) {
         if (password == null || password.isBlank()) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 비밀번호는 필수입니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "비밀번호는 필수입니다.");
         }
     }
 
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 이름은 필수입니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "이름은 필수입니다.");
         }
     }
 
     private void validatePhone(String phone) {
         if (phone == null || phone.isBlank()) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 전화번호는 필수입니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "전화번호는 필수입니다.");
         }
     }
 }

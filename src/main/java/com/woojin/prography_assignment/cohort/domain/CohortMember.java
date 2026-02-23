@@ -5,6 +5,7 @@ import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.BusinessException;
 import com.woojin.prography_assignment.common.exception.model.ExcuseLimitExceededException;
 import com.woojin.prography_assignment.common.exception.model.InsufficientDepositException;
+import com.woojin.prography_assignment.common.exception.model.InvalidInputException;
 import com.woojin.prography_assignment.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -71,7 +72,7 @@ public class CohortMember extends BaseTimeEntity {
 
     public void deductDeposit(int amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("차감 금액은 양수여야 합니다");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "차감 금액은 양수여야 합니다");
         }
         if (this.depositBalance < amount) {
             throw new InsufficientDepositException(
@@ -87,7 +88,7 @@ public class CohortMember extends BaseTimeEntity {
 
     public void refundDeposit(int amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("환급 금액은 양수여야 합니다");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "환급 금액은 양수여야 합니다");
         }
         this.depositBalance += amount;
     }
@@ -103,7 +104,7 @@ public class CohortMember extends BaseTimeEntity {
 
     public void decrementExcuseCount() {
         if (this.excuseCount <= 0) {
-            throw new IllegalStateException("공결 횟수는 0 미만이 될 수 없습니다");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "공결 횟수는 0 미만이 될 수 없습니다");
         }
         this.excuseCount--;
     }
@@ -114,16 +115,13 @@ public class CohortMember extends BaseTimeEntity {
 
     private void validationCreation(Cohort cohort, Member member, Part part, Team team) {
         if (cohort == null) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 기수는 필수입니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "기수는 필수입니다.");
         }
         if (member == null) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 회원은 필수입니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "회원은 필수입니다.");
         }
         if (part == null) {
-            throw new BusinessException(ErrorCode.INVALID_INPUT,
-                    ErrorCode.INVALID_INPUT.getMessage() + "> 파트는 필수입니다.");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "파트는 필수입니다.");
         }
     }
 }
