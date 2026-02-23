@@ -1,6 +1,7 @@
 package com.woojin.prography_assignment.member.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record CreateMemberRequest(
@@ -17,7 +18,7 @@ public record CreateMemberRequest(
         )
         @NotBlank(message = "전화번호는 필수입니다.")
         String phone,
-        @NotBlank(message = "기수 Id는 필수입니다.")
+        @NotNull(message = "기수 Id는 필수입니다.")
         Long cohortId,
         Long partId,
         Long teamId
