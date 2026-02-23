@@ -26,10 +26,11 @@ public class Part {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "part_type", nullable = false, foreignKey = @ForeignKey(name = "fk_part_cohort"))
+    @JoinColumn(name = "cohort_id", nullable = false, foreignKey = @ForeignKey(name = "fk_part_cohort"))
     private Cohort cohort;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "part_type", nullable = false)
     private PartType partType;
 
     private Part(Cohort cohort, PartType partType) {
