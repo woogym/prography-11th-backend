@@ -70,6 +70,10 @@ public class CohortMember extends BaseTimeEntity {
         return new CohortMember(cohort, member, part, team);
     }
 
+    public static CohortMember createForAdmin(Cohort cohort, Member member) {
+        return new CohortMember(cohort, member, null, null);
+    }
+
     public void deductDeposit(int amount) {
         if (amount < 0) {
             throw new InvalidInputException(ErrorCode.INVALID_INPUT, "차감 금액은 양수여야 합니다");
