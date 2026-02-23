@@ -1,13 +1,12 @@
 package com.woojin.prography_assignment.session.domain;
 
-import com.prography.attendance.cohort.domain.Cohort;
-import com.prography.attendance.common.entity.BaseTimeEntity;
 import com.woojin.prography_assignment.attendance.domain.AttendanceStatus;
 import com.woojin.prography_assignment.cohort.domain.Cohort;
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.InvalidInputException;
 import jakarta.persistence.*;
+import java.time.Duration;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +16,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
-@Table(
-        name = "sessions",
-        indexes = {
-                @Index(name = "idx_session_cohort", columnList = "cohort_id"),
-                @Index(name = "idx_session_status", columnList = "status"),
-                @Index(name = "idx_session_date", columnList = "date")
-        }
-)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Session extends BaseTimeEntity {
@@ -41,9 +32,6 @@ public class Session extends BaseTimeEntity {
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
-    @Column(name = "description", length = 500)
-    private String description;
-
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
@@ -57,7 +45,6 @@ public class Session extends BaseTimeEntity {
     private Session(
             Cohort cohort,
             String title,
-            String description,
             LocalDate date,
             LocalTime time
     ) {
@@ -65,7 +52,6 @@ public class Session extends BaseTimeEntity {
 
         this.cohort = cohort;
         this.title = title;
-        this.description = description;
         this.date = date;
         this.time = time;
         this.status = SessionStatus.SCHEDULED;
@@ -74,48 +60,45 @@ public class Session extends BaseTimeEntity {
     public static Session create(
             Cohort cohort,
             String title,
-            String description,
             LocalDate date,
             LocalTime time
     ) {
-        return new Session(cohort, title, description, date, time);
+        return new Session(cohort, title, date, time);
     }
 
-    public void update(String title, String description, LocalDate date, LocalTime time) {
+    public void update(String title, LocalDate date, LocalTime time) {
         validateNotCancelled();
         validateTitle(title);
         validateDate(date);
         validateTime(time);
 
         this.title = title;
-        this.description = description;
         this.date = date;
         this.time = time;
     }
 
     public void cancel() {
         if (this.status == SessionStatus.CANCELLED) {
-            throw new IllegalStateException("이미 취소된 일정입니다");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "이미 취소된 일정입니다");
         }
         this.status = SessionStatus.CANCELLED;
     }
 
-    /**
-     * 일정 상태 변경
-     */
     public void updateStatus(SessionStatus status) {
         validateNotCancelled();
         if (status == null) {
-            throw new IllegalArgumentException("상태는 필수입니다");
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "상태는 필수입니다");
         }
         this.status = status;
     }
 
     public AttendanceStatus determineAttendanceStatus(LocalDateTime checkTime) {
         LocalDateTime sessionStartTime = LocalDateTime.of(this.date, this.time);
-        return checkTime.isAfter(sessionStartTime)
-                ? AttendanceStatus.LATE
-                : AttendanceStatus.PRESENT;
+        if (checkTime.isAfter(sessionStartTime)) {
+            return AttendanceStatus.LATE;
+        }
+
+        return AttendanceStatus.PRESENT;
     }
 
     public int calculateLateMinutes(LocalDateTime checkTime) {
@@ -125,16 +108,16 @@ public class Session extends BaseTimeEntity {
             return 0;
         }
 
-        long minutes = java.time.Duration.between(sessionStartTime, checkTime).toMinutes();
+        long minutes = Duration.between(sessionStartTime, checkTime).toMinutes();
         return (int) minutes;
     }
 
-     // 진행중 상태 여부 확인
+     // 진행중 상태 확인
     public boolean isInProgress() {
         return this.status == SessionStatus.IN_PROGRESS;
     }
 
-    // 취소 상태 여부 확인
+    // 취소 상태 확인
     public boolean isCancelled() {
         return this.status == SessionStatus.CANCELLED;
     }
