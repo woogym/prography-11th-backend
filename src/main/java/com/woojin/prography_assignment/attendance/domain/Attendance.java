@@ -17,12 +17,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(
+        name = "attendances",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_attendance_session_cohort_member",
+                        columnNames = {"session_id", "cohort_member_id"}
+                )
+        }
+)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Attendance extends BaseTimeEntity {
