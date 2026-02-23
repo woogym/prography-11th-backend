@@ -2,6 +2,7 @@ package com.woojin.prography_assignment.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({"success", "data", "error"})
 public class ApiResponse<T> {
 
     private final boolean success;
