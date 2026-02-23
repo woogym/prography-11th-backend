@@ -4,7 +4,7 @@ import com.woojin.prography_assignment.cohort.domain.CohortMember;
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.InvalidInputException;
-import com.woojin.prography_assignment.qr.domain.QRCode;
+import com.woojin.prography_assignment.qr.domain.QrCode;
 import com.woojin.prography_assignment.session.domain.Session;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,7 +53,7 @@ public class Attendance extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "qr_code_id", foreignKey = @ForeignKey(name = "fk_attendance_qr_code"))
-    private QRCode qrCode;
+    private QrCode qrCode;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
@@ -74,7 +74,7 @@ public class Attendance extends BaseTimeEntity {
     private Attendance(
             CohortMember cohortMember,
             Session session,
-            QRCode qrCode,
+            QrCode qrCode,
             AttendanceStatus status,
             Integer lateMinutes,
             Integer penaltyAmount,
@@ -96,7 +96,7 @@ public class Attendance extends BaseTimeEntity {
     public static Attendance createByQR(
             CohortMember cohortMember,
             Session session,
-            QRCode qrCode,
+            QrCode qrCode,
             AttendanceStatus status,
             Integer lateMinutes,
             Integer penaltyAmount,
