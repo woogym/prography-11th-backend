@@ -38,8 +38,8 @@ public class CohortMember extends BaseTimeEntity {
     @JoinColumn(name = "member_id", nullable = false, foreignKey = @ForeignKey(name = "fk_cohort_member_member"))
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "part_id", nullable = false, foreignKey = @ForeignKey(name = "fk_cohort_member_part"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "part_id", foreignKey = @ForeignKey(name = "fk_cohort_member_part"))
     private Part part;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -56,7 +56,7 @@ public class CohortMember extends BaseTimeEntity {
     private static final int MAX_EXCUSE_COUNT = 3;
 
     private CohortMember(Cohort cohort, Member member, Part part, Team team) {
-        validationCreation(cohort, member, part, team);
+        validationCreation(cohort, member);
 
         this.cohort = cohort;
         this.member = member;
@@ -113,15 +113,12 @@ public class CohortMember extends BaseTimeEntity {
         return this.excuseCount < MAX_EXCUSE_COUNT;
     }
 
-    private void validationCreation(Cohort cohort, Member member, Part part, Team team) {
+    private void validationCreation(Cohort cohort, Member member) {
         if (cohort == null) {
             throw new InvalidInputException(ErrorCode.INVALID_INPUT, "기수는 필수입니다.");
         }
         if (member == null) {
             throw new InvalidInputException(ErrorCode.INVALID_INPUT, "회원은 필수입니다.");
-        }
-        if (part == null) {
-            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "파트는 필수입니다.");
         }
     }
 }
