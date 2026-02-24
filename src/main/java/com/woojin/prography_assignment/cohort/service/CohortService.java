@@ -1,7 +1,7 @@
 package com.woojin.prography_assignment.cohort.service;
 
 import com.woojin.prography_assignment.cohort.domain.Cohort;
-import com.woojin.prography_assignment.cohort.dto.response.CohortListResponse;
+import com.woojin.prography_assignment.cohort.dto.response.CohortResponse;
 import com.woojin.prography_assignment.cohort.repository.CohortRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ public class CohortService {
     private final CohortRepository cohortRepository;
 
     @Transactional(readOnly = true)
-    public List<CohortListResponse> getCohorts() {
+    public List<CohortResponse> getCohorts() {
         List<Cohort> cohorts = cohortRepository.findAllByOrderByGenerationAsc();
 
         return cohorts.stream()
-                .map(CohortListResponse::from)
+                .map(CohortResponse::from)
                 .toList();
     }
 }
