@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberService {
+public class MemberCreateService {
 
     private static final int INITIAL_DEPOSIT = 100_000;
 
