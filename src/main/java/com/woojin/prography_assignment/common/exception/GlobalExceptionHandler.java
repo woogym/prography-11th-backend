@@ -2,6 +2,7 @@ package com.woojin.prography_assignment.common.exception;
 
 import com.woojin.prography_assignment.common.dto.ApiResponse;
 import com.woojin.prography_assignment.common.exception.model.BusinessException;
+import com.woojin.prography_assignment.common.exception.model.UnauthorizedException;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponse.failure(ErrorCode.INVALID_INPUT, errorMessage));
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleUnauthorizedException(
+            UnauthorizedException e
+    ) {
+        log.warn("Unauthorized Exception: {}", e.getMessage());
+
+        return ResponseEntity
+                .status(e.getErrorCode().getHttpStatus())
+                .body(ApiResponse.failure(e.getErrorCode()));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
