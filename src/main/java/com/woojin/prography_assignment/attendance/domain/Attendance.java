@@ -80,7 +80,7 @@ public class Attendance extends BaseTimeEntity {
             Integer lateMinutes,
             Integer penaltyAmount,
             String reason,
-            LocalDateTime checkedInAt
+            Instant checkedInAt
     ) {
         validateCreation(cohortMember, session, status, penaltyAmount);
 
@@ -101,7 +101,7 @@ public class Attendance extends BaseTimeEntity {
             AttendanceStatus status,
             Integer lateMinutes,
             Integer penaltyAmount,
-            LocalDateTime checkedInAt
+            Instant checkedInAt
     ) {
         return new Attendance(
                 cohortMember,
