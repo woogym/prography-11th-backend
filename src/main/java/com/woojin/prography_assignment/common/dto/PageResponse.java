@@ -31,7 +31,20 @@ public class PageResponse<T> {
         );
     }
 
-    private PageResponse(List<T> content, int page, int size, long totalElements, int totalPages) {
+    public static <T> PageResponse<T> of(List<T> content,
+                                         int page,
+                                         int size,
+                                         long totalElements,
+                                         int totalPages
+    ) {
+        return new PageResponse<>(content, page, size, totalElements, totalPages);
+    }
+
+    private PageResponse(List<T> content,
+                         int page,
+                         int size,
+                         long totalElements,
+                         int totalPages) {
         this.content = content;
         this.page = page;
         this.size = size;
