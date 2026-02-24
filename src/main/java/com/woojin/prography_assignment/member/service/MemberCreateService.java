@@ -15,7 +15,7 @@ import com.woojin.prography_assignment.deposit.domain.DepositHistory;
 import com.woojin.prography_assignment.deposit.repository.DepositRepository;
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.dto.request.CreateMemberRequest;
-import com.woojin.prography_assignment.member.dto.response.MemberResponse;
+import com.woojin.prography_assignment.member.dto.response.MemberCreateResponse;
 import com.woojin.prography_assignment.member.repository.MemberRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class MemberCreateService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public MemberResponse createMember(CreateMemberRequest request) {
+    public MemberCreateResponse createMember(CreateMemberRequest request) {
         validateLoginIdUnique(request.loginId());
 
         Cohort cohort = findCohortById(request.cohortId());
@@ -65,7 +65,7 @@ public class MemberCreateService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.COHORT_MEMBER_NOT_FOUND,
                         ErrorCode.COHORT_MEMBER_NOT_FOUND.getMessage()));
 
-        return MemberResponse.from(member, cohortMemberWithRelations);
+        return MemberCreateResponse.from(member, cohortMemberWithRelations);
     }
 
     private void validateLoginIdUnique(String loginId) {

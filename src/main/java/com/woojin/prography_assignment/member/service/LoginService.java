@@ -4,7 +4,7 @@ import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.UnauthorizedException;
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.dto.request.LoginRequest;
-import com.woojin.prography_assignment.member.dto.response.LoginResponse;
+import com.woojin.prography_assignment.member.dto.response.MemberResponse;
 import com.woojin.prography_assignment.member.repository.MemberRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +20,14 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
-    public LoginResponse login(LoginRequest request) {
+    public MemberResponse login(LoginRequest request) {
 
         Member member = findByLoginId(request.loginId());
 
         validatePassword(request.password(), member.getPassword());
         validateMemberStatus(member);
 
-        return LoginResponse.from(member);
+        return MemberResponse.from(member);
     }
 
     private void validateMemberStatus(Member member) {
