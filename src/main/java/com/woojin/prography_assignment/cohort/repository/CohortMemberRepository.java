@@ -16,6 +16,8 @@ public interface CohortMemberRepository extends JpaRepository<CohortMember, Long
         left join fetch cm.part p
         left join fetch cm.team t
         where cm.member.id = :memberId
+        order by cm.cohort.generation DESC
+        limit 1
         """)
     Optional<CohortMember> findByMemberId(@Param("memberId") Long memberId);
 
@@ -29,4 +31,12 @@ public interface CohortMemberRepository extends JpaRepository<CohortMember, Long
         WHERE cm.member.id IN :memberIds
         """)
     List<CohortMember> findByMemberIdsWithRelations(@Param("memberIds") List<Long> memberIds);
+
+    // 특정 멤버의 특정 기수를 통한 조회
+    @Query("""
+        SELECT cm FROM CohortMember cm
+        WHERE cm.member.id = :memberId
+        AND cm.cohort.id = :cohortId
+        """)
+    Optional<CohortMember> findByMemberIdAndCohortId(@Param("memberId") Long memberId, @Param("cohortId") Long cohortId);
 }
