@@ -14,8 +14,8 @@ import com.woojin.prography_assignment.common.exception.model.EntityNotFoundExce
 import com.woojin.prography_assignment.deposit.domain.DepositHistory;
 import com.woojin.prography_assignment.deposit.repository.DepositRepository;
 import com.woojin.prography_assignment.member.domain.Member;
-import com.woojin.prography_assignment.member.dto.CreateMemberRequest;
-import com.woojin.prography_assignment.member.dto.MemberResponse;
+import com.woojin.prography_assignment.member.dto.request.CreateMemberRequest;
+import com.woojin.prography_assignment.member.dto.response.MemberResponse;
 import com.woojin.prography_assignment.member.repository.MemberRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

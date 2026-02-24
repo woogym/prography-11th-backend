@@ -1,8 +1,8 @@
 package com.woojin.prography_assignment.member.controller;
 
 import com.woojin.prography_assignment.common.dto.ApiResponse;
-import com.woojin.prography_assignment.member.dto.CreateMemberRequest;
-import com.woojin.prography_assignment.member.dto.MemberResponse;
+import com.woojin.prography_assignment.member.dto.request.CreateMemberRequest;
+import com.woojin.prography_assignment.member.dto.response.MemberResponse;
 import com.woojin.prography_assignment.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
