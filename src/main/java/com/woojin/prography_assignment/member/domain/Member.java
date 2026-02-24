@@ -80,10 +80,14 @@ public class Member extends BaseTimeEntity {
     }
 
     public void updateInfo(String name, String phone) {
-        validateName(name);
-        validatePhone(phone);
-        this.name = name;
-        this.phone = phone;
+        if (name != null) {
+            validateName(name);
+            this.name = name;
+        }
+        if (phone != null) {
+            validatePhone(phone);
+            this.phone = phone;
+        }
     }
 
     public void changePassword(String encodedPassword) {
