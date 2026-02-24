@@ -8,7 +8,7 @@ import com.woojin.prography_assignment.member.domain.MemberRole;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
 import java.time.LocalDateTime;
 
-public record MemberResponse(
+public record MemberDashboardResponse(
         Long id,
         String loginId,
         String name,
@@ -18,12 +18,17 @@ public record MemberResponse(
         Integer generation,
         String partName,
         String teamName,
+        Integer deposit,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
 
-    public static MemberResponse from(Member member, CohortMember cohortMember) {
-        return new MemberResponse(
+    public static MemberDashboardResponse from(Member member, CohortMember cohortMember) {
+        if (cohortMember == null) {
+            return fromMemberOnly(member);
+        }
+
+        return new MemberDashboardResponse(
                 member.getId(),
                 member.getLoginId(),
                 member.getName(),
@@ -33,6 +38,24 @@ public record MemberResponse(
                 cohortMember.getCohort().getGeneration(),
                 getPartName(cohortMember.getPart()),
                 getTeamName(cohortMember.getTeam()),
+                cohortMember.getDepositBalance(),
+                member.getCreatedAt(),
+                member.getModifiedAt()
+        );
+    }
+
+    private static MemberDashboardResponse fromMemberOnly(Member member) {
+        return new MemberDashboardResponse(
+                member.getId(),
+                member.getLoginId(),
+                member.getName(),
+                member.getPhone(),
+                member.getStatus(),
+                member.getRole(),
+                null,
+                null,
+                null,
+                null,
                 member.getCreatedAt(),
                 member.getModifiedAt()
         );
