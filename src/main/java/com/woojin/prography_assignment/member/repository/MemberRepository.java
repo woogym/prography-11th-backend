@@ -2,6 +2,7 @@ package com.woojin.prography_assignment.member.repository;
 
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     boolean existsByLoginId(String loginId);
+
+    Optional<Member> findByLoginId(String loginId);
 
     @Query("""
         SELECT m
