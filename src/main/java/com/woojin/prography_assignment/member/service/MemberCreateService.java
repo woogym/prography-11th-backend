@@ -4,7 +4,7 @@ import com.woojin.prography_assignment.cohort.domain.Cohort;
 import com.woojin.prography_assignment.member.domain.CohortMember;
 import com.woojin.prography_assignment.cohort.domain.Part;
 import com.woojin.prography_assignment.cohort.domain.Team;
-import com.woojin.prography_assignment.cohort.repository.CohortMemberRepository;
+import com.woojin.prography_assignment.member.repository.CohortMemberRepository;
 import com.woojin.prography_assignment.cohort.repository.CohortRepository;
 import com.woojin.prography_assignment.cohort.repository.PartRepository;
 import com.woojin.prography_assignment.cohort.repository.TeamRepository;

@@ -1,7 +1,7 @@
 package com.woojin.prography_assignment.member.service;
 
 import com.woojin.prography_assignment.member.domain.CohortMember;
-import com.woojin.prography_assignment.cohort.repository.CohortMemberRepository;
+import com.woojin.prography_assignment.member.repository.CohortMemberRepository;
 import com.woojin.prography_assignment.common.dto.PageResponse;
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.domain.MemberStatus;

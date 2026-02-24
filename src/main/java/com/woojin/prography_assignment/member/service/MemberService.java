@@ -10,7 +10,7 @@ import com.woojin.prography_assignment.common.exception.model.EntityNotFoundExce
 import com.woojin.prography_assignment.deposit.domain.DepositHistory;
 import com.woojin.prography_assignment.deposit.repository.DepositRepository;
 import com.woojin.prography_assignment.member.domain.CohortMember;
-import com.woojin.prography_assignment.cohort.repository.CohortMemberRepository;
+import com.woojin.prography_assignment.member.repository.CohortMemberRepository;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.dto.request.MemberUpdateRequest;

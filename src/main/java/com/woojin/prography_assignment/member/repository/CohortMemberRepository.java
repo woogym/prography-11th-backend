@@ -1,4 +1,4 @@
-package com.woojin.prography_assignment.cohort.repository;
+package com.woojin.prography_assignment.member.repository;
 
 import com.woojin.prography_assignment.member.domain.CohortMember;
 import java.util.List;
