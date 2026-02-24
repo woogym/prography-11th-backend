@@ -1,4 +1,4 @@
-package com.woojin.prography_assignment.member.dto;
+package com.woojin.prography_assignment.member.dto.response;
 
 import com.woojin.prography_assignment.cohort.domain.CohortMember;
 import com.woojin.prography_assignment.cohort.domain.Part;

@@ -1,4 +1,4 @@
-package com.woojin.prography_assignment.member.dto;
+package com.woojin.prography_assignment.member.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
