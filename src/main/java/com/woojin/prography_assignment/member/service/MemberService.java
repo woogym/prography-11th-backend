@@ -6,10 +6,12 @@ import com.woojin.prography_assignment.cohort.domain.Team;
 import com.woojin.prography_assignment.cohort.repository.CohortRepository;
 import com.woojin.prography_assignment.cohort.repository.PartRepository;
 import com.woojin.prography_assignment.cohort.repository.TeamRepository;
+import com.woojin.prography_assignment.common.exception.model.BusinessException;
 import com.woojin.prography_assignment.common.exception.model.EntityNotFoundException;
 import com.woojin.prography_assignment.deposit.domain.DepositHistory;
 import com.woojin.prography_assignment.deposit.repository.DepositRepository;
 import com.woojin.prography_assignment.member.domain.CohortMember;
+import com.woojin.prography_assignment.member.dto.response.MemberDeleteResponse;
 import com.woojin.prography_assignment.member.repository.CohortMemberRepository;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.member.domain.Member;
@@ -60,6 +62,16 @@ public class MemberService {
         CohortMember cohortMember = findCohortMemberByMemberId(member.getId());
 
         return MemberDetailResponse.from(member, cohortMember);
+    }
+
+    @Transactional
+    public MemberDeleteResponse withdrawnMember(Long id) {
+        Member member = findMemberById(id);
+        isWithdrawn(member);
+
+        member.withdraw();
+
+        return MemberDeleteResponse.from(member);
     }
 
     private void updateCohortAffiliation(Member member, MemberUpdateRequest request) {
@@ -155,5 +167,12 @@ public class MemberService {
             return null;
         }
         return findTeamById(teamId);
+    }
+
+    private void isWithdrawn(Member member) {
+        if (member.isWithdraw()) {
+            throw new BusinessException(ErrorCode.MEMBER_ALREADY_WITHDRAWN,
+                    ErrorCode.MEMBER_ALREADY_WITHDRAWN.getMessage());
+        }
     }
 }
