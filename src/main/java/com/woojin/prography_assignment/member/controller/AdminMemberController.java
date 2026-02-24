@@ -5,7 +5,7 @@ import com.woojin.prography_assignment.common.dto.PageResponse;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
 import com.woojin.prography_assignment.member.dto.request.CreateMemberRequest;
 import com.woojin.prography_assignment.member.dto.response.MemberDashboardResponse;
-import com.woojin.prography_assignment.member.dto.response.MemberCreateResponse;
+import com.woojin.prography_assignment.member.dto.response.MemberDetailResponse;
 import com.woojin.prography_assignment.member.service.MemberCreateService;
 import com.woojin.prography_assignment.member.service.MemberDashboardService;
 import jakarta.validation.Valid;
@@ -28,11 +28,11 @@ public class AdminMemberController {
     private final MemberDashboardService memberDashboardService;
 
     @PostMapping("/members")
-    public ResponseEntity<ApiResponse<MemberCreateResponse>> createMember(
+    public ResponseEntity<ApiResponse<MemberDetailResponse>> createMember(
             @Valid @RequestBody CreateMemberRequest request
     ) {
 
-        MemberCreateResponse response = memberCreateService.createMember(request);
+        MemberDetailResponse response = memberCreateService.createMember(request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

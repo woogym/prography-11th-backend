@@ -8,7 +8,7 @@ import com.woojin.prography_assignment.member.domain.MemberRole;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
 import java.time.LocalDateTime;
 
-public record MemberCreateResponse(
+public record MemberDetailResponse(
         Long id,
         String loginId,
         String name,
@@ -22,8 +22,8 @@ public record MemberCreateResponse(
         LocalDateTime updatedAt
 ) {
 
-    public static MemberCreateResponse from(Member member, CohortMember cohortMember) {
-        return new MemberCreateResponse(
+    public static MemberDetailResponse from(Member member, CohortMember cohortMember) {
+        return new MemberDetailResponse(
                 member.getId(),
                 member.getLoginId(),
                 member.getName(),

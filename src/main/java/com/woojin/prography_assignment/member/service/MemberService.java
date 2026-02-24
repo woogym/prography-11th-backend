@@ -3,7 +3,6 @@ package com.woojin.prography_assignment.member.service;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.BusinessException;
 import com.woojin.prography_assignment.member.domain.Member;
-import com.woojin.prography_assignment.member.dto.response.MemberCreateResponse;
 import com.woojin.prography_assignment.member.dto.response.MemberResponse;
 import com.woojin.prography_assignment.member.repository.MemberRepository;
 import lombok.AccessLevel;
