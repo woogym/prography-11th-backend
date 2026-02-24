@@ -1,6 +1,6 @@
 package com.woojin.prography_assignment.member.dto.response;
 
-import com.woojin.prography_assignment.cohort.domain.CohortMember;
+import com.woojin.prography_assignment.member.domain.CohortMember;
 import com.woojin.prography_assignment.cohort.domain.Part;
 import com.woojin.prography_assignment.cohort.domain.Team;
 import com.woojin.prography_assignment.member.domain.Member;

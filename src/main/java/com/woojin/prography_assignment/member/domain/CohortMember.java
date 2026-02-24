@@ -1,12 +1,13 @@
-package com.woojin.prography_assignment.cohort.domain;
+package com.woojin.prography_assignment.member.domain;
 
+import com.woojin.prography_assignment.cohort.domain.Cohort;
+import com.woojin.prography_assignment.cohort.domain.Part;
+import com.woojin.prography_assignment.cohort.domain.Team;
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
-import com.woojin.prography_assignment.common.exception.model.BusinessException;
 import com.woojin.prography_assignment.common.exception.model.ExcuseLimitExceededException;
 import com.woojin.prography_assignment.common.exception.model.InsufficientDepositException;
 import com.woojin.prography_assignment.common.exception.model.InvalidInputException;
-import com.woojin.prography_assignment.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -72,6 +73,12 @@ public class CohortMember extends BaseTimeEntity {
 
     public static CohortMember createForAdmin(Cohort cohort, Member member) {
         return new CohortMember(cohort, member, null, null);
+    }
+
+    public void updateAffiliation(Cohort cohort, Part part, Team team) {
+        this.cohort = cohort;
+        this.part = part;
+        this.team = team;
     }
 
     public void deductDeposit(int amount) {

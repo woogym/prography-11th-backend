@@ -1,6 +1,6 @@
 package com.woojin.prography_assignment.cohort.repository;
 
-import com.woojin.prography_assignment.cohort.domain.CohortMember;
+import com.woojin.prography_assignment.member.domain.CohortMember;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

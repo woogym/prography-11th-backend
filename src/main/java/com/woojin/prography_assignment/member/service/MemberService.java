@@ -1,6 +1,6 @@
 package com.woojin.prography_assignment.member.service;
 
-import com.woojin.prography_assignment.cohort.domain.CohortMember;
+import com.woojin.prography_assignment.member.domain.CohortMember;
 import com.woojin.prography_assignment.cohort.repository.CohortMemberRepository;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.BusinessException;

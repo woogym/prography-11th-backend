@@ -1,7 +1,7 @@
 package com.woojin.prography_assignment.common.config;
 
 import com.woojin.prography_assignment.cohort.domain.Cohort;
-import com.woojin.prography_assignment.cohort.domain.CohortMember;
+import com.woojin.prography_assignment.member.domain.CohortMember;
 import com.woojin.prography_assignment.cohort.domain.Part;
 import com.woojin.prography_assignment.cohort.domain.PartType;
 import com.woojin.prography_assignment.cohort.domain.Team;

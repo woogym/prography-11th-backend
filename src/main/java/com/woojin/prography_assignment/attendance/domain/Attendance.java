@@ -1,6 +1,6 @@
 package com.woojin.prography_assignment.attendance.domain;
 
-import com.woojin.prography_assignment.cohort.domain.CohortMember;
+import com.woojin.prography_assignment.member.domain.CohortMember;
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.InvalidInputException;

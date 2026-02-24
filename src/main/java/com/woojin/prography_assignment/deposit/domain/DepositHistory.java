@@ -1,7 +1,7 @@
 package com.woojin.prography_assignment.deposit.domain;
 
 import com.woojin.prography_assignment.attendance.domain.Attendance;
-import com.woojin.prography_assignment.cohort.domain.CohortMember;
+import com.woojin.prography_assignment.member.domain.CohortMember;
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
