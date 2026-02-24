@@ -75,9 +75,11 @@ public class CohortMember extends BaseTimeEntity {
         return new CohortMember(cohort, member, null, null);
     }
 
-    public void updateAffiliation(Cohort cohort, Part part, Team team) {
-        this.cohort = cohort;
+    public void updatePart(Part part) {
         this.part = part;
+    }
+
+    public void updateTeam(Team team) {
         this.team = team;
     }
 
@@ -125,11 +127,16 @@ public class CohortMember extends BaseTimeEntity {
     }
 
     private void validationCreation(Cohort cohort, Member member) {
-        if (cohort == null) {
-            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "기수는 필수입니다.");
-        }
+        validationGenerationIsNull(cohort);
+
         if (member == null) {
             throw new InvalidInputException(ErrorCode.INVALID_INPUT, "회원은 필수입니다.");
+        }
+    }
+
+    private void validationGenerationIsNull(Cohort cohort) {
+        if (cohort == null) {
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "기수는 필수입니다.");
         }
     }
 }
