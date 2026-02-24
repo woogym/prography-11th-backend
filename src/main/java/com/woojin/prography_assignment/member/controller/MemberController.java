@@ -1,6 +1,7 @@
 package com.woojin.prography_assignment.member.controller;
 
 import com.woojin.prography_assignment.common.dto.ApiResponse;
+import com.woojin.prography_assignment.member.dto.response.MemberDetailResponse;
 import com.woojin.prography_assignment.member.dto.response.MemberResponse;
 import com.woojin.prography_assignment.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -15,15 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/members")
+@RequestMapping("/api/v1")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/members/{id}")
     public ResponseEntity<ApiResponse<MemberResponse>> getMember(@PathVariable Long id) {
 
         MemberResponse response = memberService.getMember(id);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponse.success(response));
+    }
+
+    @GetMapping("/admin/members/{id}")
+    public ResponseEntity<ApiResponse<MemberDetailResponse>> getMemberDetail(@PathVariable Long id) {
+
+        MemberDetailResponse response = memberService.getMemberDetail(id);
 
         return ResponseEntity
                 .status(HttpStatus.OK)

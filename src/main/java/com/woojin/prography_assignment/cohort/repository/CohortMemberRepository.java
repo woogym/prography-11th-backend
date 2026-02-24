@@ -19,17 +19,6 @@ public interface CohortMemberRepository extends JpaRepository<CohortMember, Long
         """)
     Optional<CohortMember> findByMemberId(@Param("memberId") Long memberId);
 
-    // 단일 회원의 CohortMember 조회
-    @Query("""
-        SELECT cm
-        FROM CohortMember cm
-        JOIN FETCH cm.cohort c
-        LEFT JOIN FETCH cm.part p
-        LEFT JOIN FETCH cm.team t
-        WHERE cm.member.id = :memberId
-        """)
-    Optional<CohortMember> findByMemberIdWithRelations(@Param("memberId") Long memberId);
-
     // 여러 회원의 CohortMember 일괄 조회
     @Query("""
         SELECT cm
