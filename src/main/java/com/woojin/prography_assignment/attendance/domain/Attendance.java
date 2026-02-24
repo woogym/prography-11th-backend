@@ -19,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -69,7 +70,7 @@ public class Attendance extends BaseTimeEntity {
     private String reason;
 
     @Column(name = "checked_in_at")
-    private LocalDateTime checkedInAt;
+    private Instant checkedInAt;
 
     private Attendance(
             CohortMember cohortMember,

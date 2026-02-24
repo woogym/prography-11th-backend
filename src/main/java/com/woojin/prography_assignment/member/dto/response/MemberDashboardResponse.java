@@ -6,6 +6,7 @@ import com.woojin.prography_assignment.cohort.domain.Team;
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.domain.MemberRole;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record MemberDashboardResponse(
@@ -19,8 +20,8 @@ public record MemberDashboardResponse(
         String partName,
         String teamName,
         Integer deposit,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        Instant createdAt,
+        Instant updatedAt
 ) {
 
     public static MemberDashboardResponse from(Member member, CohortMember cohortMember) {

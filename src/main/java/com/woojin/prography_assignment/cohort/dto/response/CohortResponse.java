@@ -1,13 +1,14 @@
 package com.woojin.prography_assignment.cohort.dto.response;
 
 import com.woojin.prography_assignment.cohort.domain.Cohort;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record CohortResponse(
         Long id,
         Integer generation,
         String name,
-        LocalDateTime createdAt
+        Instant createdAt
 ) {
 
     public static CohortResponse from(Cohort cohort) {

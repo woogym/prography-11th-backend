@@ -3,6 +3,7 @@ package com.woojin.prography_assignment.member.dto.response;
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.domain.MemberRole;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record MemberResponse(
@@ -12,8 +13,8 @@ public record MemberResponse(
         String phone,
         MemberStatus status,
         MemberRole role,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        Instant createdAt,
+        Instant updatedAt
 ) {
 
     public static MemberResponse from(Member member) {

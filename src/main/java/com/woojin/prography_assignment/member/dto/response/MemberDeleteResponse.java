@@ -2,6 +2,7 @@ package com.woojin.prography_assignment.member.dto.response;
 
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record MemberDeleteResponse(
@@ -9,7 +10,7 @@ public record MemberDeleteResponse(
         String loginId,
         String name,
         MemberStatus status,
-        LocalDateTime updatedAt
+        Instant updatedAt
 ) {
 
     public static MemberDeleteResponse from(Member member) {

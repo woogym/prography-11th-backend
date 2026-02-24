@@ -13,7 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -37,31 +39,31 @@ public class QrCode extends BaseTimeEntity {
     private String hashValue;
 
     @Column(name = "expires_at", nullable = false)
-    private LocalDateTime expiresAt;
+    private Instant expiresAt;
 
     private static final int EXPIRATION_HOURS = 24;
 
-    private QrCode(Session session, LocalDateTime now) {
+    private QrCode(Session session, Instant now) {
         validateCreation(session);
 
         this.session = session;
         this.hashValue = generateHashValue();
-        this.expiresAt = now.plusHours(EXPIRATION_HOURS);
+        this.expiresAt = now.plus(EXPIRATION_HOURS, ChronoUnit.HOURS);
     }
 
-    public static QrCode create(Session session, LocalDateTime now) {
+    public static QrCode create(Session session, Instant now) {
         return new QrCode(session, now);
     }
 
-    public boolean isExpired(LocalDateTime now) {
+    public boolean isExpired(Instant now) {
         return now.isAfter(this.expiresAt);
     }
 
-    public boolean isActive(LocalDateTime now) {
+    public boolean isActive(Instant now) {
         return !isExpired(now);
     }
 
-    public void expire(LocalDateTime now) {
+    public void expire(Instant now) {
         this.expiresAt = now;
     }
 

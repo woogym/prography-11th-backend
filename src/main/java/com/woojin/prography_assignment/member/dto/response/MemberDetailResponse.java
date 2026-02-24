@@ -6,6 +6,7 @@ import com.woojin.prography_assignment.cohort.domain.Team;
 import com.woojin.prography_assignment.member.domain.Member;
 import com.woojin.prography_assignment.member.domain.MemberRole;
 import com.woojin.prography_assignment.member.domain.MemberStatus;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record MemberDetailResponse(
@@ -18,8 +19,8 @@ public record MemberDetailResponse(
         Integer generation,
         String partName,
         String teamName,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        Instant createdAt,
+        Instant updatedAt
 ) {
 
     public static MemberDetailResponse from(Member member, CohortMember cohortMember) {
