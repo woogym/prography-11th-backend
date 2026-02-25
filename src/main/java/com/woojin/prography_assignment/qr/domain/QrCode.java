@@ -59,8 +59,8 @@ public class QrCode extends BaseTimeEntity {
         return now.isAfter(this.expiresAt);
     }
 
-    public boolean isActive(Instant now) {
-        return !isExpired(now);
+    public boolean isActive() {
+        return !isExpired(Instant.now());
     }
 
     public void expire(Instant now) {

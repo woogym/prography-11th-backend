@@ -1,7 +1,11 @@
 package com.woojin.prography_assignment.attendance.repository;
 
 import com.woojin.prography_assignment.attendance.domain.Attendance;
+import com.woojin.prography_assignment.attendance.dto.AttendanceSummaryDto;
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin.AttendanceSummary;
 import java.util.List;
+import java.util.Optional;
+import javax.swing.text.html.Option;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +20,17 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
         GROUP BY a.session.id, a.status
         """)
     List<Object[]> getAttendanceStatsBySessionIds(@Param("sessionIds") List<Long> sessionIds);
+
+    @Query("""
+        SELECT new com.woojin.prography_assignment.attendance.dto.AttendanceSummaryDto(
+            COUNT(case when a.status = 'PRESENT' then 1 end),
+            COUNT(case when a.status = 'ABSENT' then 1 end),
+            COUNT(case when a.status = 'LATE' then 1 end),
+            COUNT(case when a.status = 'EXCUSED' then 1 end),
+            count(a)
+        )
+        FROM Attendance a
+        where a.session.id = :sessionId
+        """)
+    Optional<AttendanceSummaryDto> getAttendanceStatBySessionId(@Param("sessionId") Long sessionId);
 }

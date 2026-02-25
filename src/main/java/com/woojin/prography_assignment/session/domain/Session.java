@@ -72,17 +72,28 @@ public class Session extends BaseTimeEntity {
         return new Session(cohort, title, location, date, time);
     }
 
-    public void update(String title, String location, LocalDate date, LocalTime time) {
+    public void update(String title, LocalDate date, LocalTime time, String location) {
         validateNotCancelled();
-        validateTitle(title);
-        validateLocation(location);
-        validateDate(date);
-        validateTime(time);
 
-        this.title = title;
-        this.location = location;
-        this.date = date;
-        this.time = time;
+        if (title != null) {
+            validateTitle(title);
+            this.title = title;
+        }
+
+        if (location != null) {
+            validateLocation(location);
+            this.location = location;
+        }
+
+        if (date != null) {
+            validateDate(date);
+            this.date = date;
+        }
+
+        if (time != null) {
+            validateTime(time);
+            this.time = time;
+        }
     }
 
     public void cancel() {
@@ -94,10 +105,9 @@ public class Session extends BaseTimeEntity {
 
     public void updateStatus(SessionStatus status) {
         validateNotCancelled();
-        if (status == null) {
-            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "상태는 필수입니다");
+        if (status != null) {
+            this.status = status;
         }
-        this.status = status;
     }
 
     public AttendanceStatus determineAttendanceStatus(LocalDateTime checkTime) {
@@ -173,7 +183,7 @@ public class Session extends BaseTimeEntity {
 
     private void validateNotCancelled() {
         if (this.status == SessionStatus.CANCELLED) {
-            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "취소된 일정은 수정할 수 없습니다");
+            throw new InvalidInputException(ErrorCode.SESSION_ALREADY_CANCELLED, "취소된 일정은 수정할 수 없습니다");
         }
     }
 }

@@ -3,6 +3,7 @@ package com.woojin.prography_assignment.qr.repository;
 import com.woojin.prography_assignment.qr.domain.QrCode;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,6 @@ public interface QrRepository extends JpaRepository<QrCode, Long> {
         """)
     List<Long> findSessionIdsWithActiveQr(@Param("sessionIds") List<Long> sessionIds,
                                           @Param("now") Instant now);
+
+    Optional<QrCode> findBySessionId(Long id);
 }
