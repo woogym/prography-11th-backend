@@ -13,6 +13,7 @@ import com.woojin.prography_assignment.qr.repository.QrRepository;
 import com.woojin.prography_assignment.session.domain.Session;
 import com.woojin.prography_assignment.session.domain.SessionStatus;
 import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForMember;
 import com.woojin.prography_assignment.session.repository.SessionRepository;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Transactional(readOnly = true)
 public class SessionRetrieveService {
 
     private final SessionRepository sessionRepository;
@@ -36,7 +38,6 @@ public class SessionRetrieveService {
     private final CohortRepository cohortRepository;
     private final CohortProperties cohortProperties;
 
-    @Transactional(readOnly = true)
     public List<SessionResponseForAdmin> getSessionsForAdmin(LocalDate dateFrom,
                                                              LocalDate dateTo,
                                                              SessionStatus status) {
@@ -64,7 +65,11 @@ public class SessionRetrieveService {
                 .toList();
     }
 
-    public
+    public List<SessionResponseForMember> getSessionsForMember() {
+        Cohort cohort = findCurrentCohort();
+
+        return sessionRepository.findSessionsSummariesByCohortId(cohort.getId());
+    }
 
     private SessionResponseForAdmin toResponse(
             Session session,

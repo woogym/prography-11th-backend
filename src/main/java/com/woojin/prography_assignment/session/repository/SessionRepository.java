@@ -2,8 +2,11 @@ package com.woojin.prography_assignment.session.repository;
 
 import com.woojin.prography_assignment.session.domain.Session;
 import com.woojin.prography_assignment.session.domain.SessionStatus;
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForMember;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import javax.swing.text.html.Option;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +28,22 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
             @Param("dateTo") LocalDate dateTo,
             @Param("status") SessionStatus status
     );
+
+
+    @Query("""
+        select new com.woojin.prography_assignment.session.dto.response.SessionResponseForMember(
+            s.id,
+            s.title,
+            s.date,
+            s.time,
+            s.location,
+            s.status,
+            s.createdAt,
+            s.modifiedAt
+        )
+        from Session s
+        where s.cohort.id = :cohortId
+        order by s.date desc , s.time desc
+""")
+    List<SessionResponseForMember> findSessionsSummariesByCohortId(@Param("cohortId") Long cohortId);
 }
