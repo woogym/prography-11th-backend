@@ -98,7 +98,7 @@ public class Session extends BaseTimeEntity {
 
     public void cancel() {
         if (this.status == SessionStatus.CANCELLED) {
-            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "이미 취소된 일정입니다");
+            throw new InvalidInputException(ErrorCode.SESSION_ALREADY_CANCELLED, "이미 취소된 일정입니다");
         }
         this.status = SessionStatus.CANCELLED;
     }

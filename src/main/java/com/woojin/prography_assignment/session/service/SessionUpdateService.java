@@ -46,6 +46,21 @@ public class SessionUpdateService {
                 qrCode.isActive());
     }
 
+    @Transactional
+    public SessionResponseForAdmin sessionCancelled(Long id) {
+        Session session = findSessionById(id);
+        session.cancel();
+        QrCode qrCode = findQrcodeBySessionId(id);
+        qrCode.expire();
+
+        AttendanceSummaryDto attendanceSummary = findAttendanceSummaryBySessionId(id);
+
+        return SessionResponseForAdmin.from(
+                session,
+                attendanceSummary.toResponse(),
+                qrCode.isActive());
+    }
+
     private Session findSessionById(Long id) {
         return sessionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.SESSION_NOT_FOUND,

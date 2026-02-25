@@ -63,8 +63,8 @@ public class QrCode extends BaseTimeEntity {
         return !isExpired(Instant.now());
     }
 
-    public void expire(Instant now) {
-        this.expiresAt = now;
+    public void expire() {
+        this.expiresAt = Instant.now();
     }
 
     private String generateHashValue() {
