@@ -2,6 +2,7 @@ package com.woojin.prography_assignment.session.dto.response;
 
 import com.woojin.prography_assignment.session.domain.Session;
 import com.woojin.prography_assignment.session.domain.SessionStatus;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -29,7 +30,23 @@ public record SessionResponse(
                 session.getTime(),
                 session.getLocation(),
                 session.getStatus(),
-                AttendanceSummary.initial(),
+                AttendanceSummary.zero(),
+                qrActive,
+                session.getCreatedAt(),
+                session.getModifiedAt()
+        );
+    }
+
+    public static SessionResponse from(Session session, AttendanceSummary summary, boolean qrActive) {
+        return new SessionResponse(
+                session.getId(),
+                session.getCohort().getId(),
+                session.getTitle(),
+                session.getDate(),
+                session.getTime(),
+                session.getLocation(),
+                session.getStatus(),
+                summary,
                 qrActive,
                 session.getCreatedAt(),
                 session.getModifiedAt()
@@ -43,7 +60,7 @@ public record SessionResponse(
             Integer excused,
             Integer total
     ) {
-        public static AttendanceSummary initial() {
+        public static AttendanceSummary zero() {
             return new AttendanceSummary(0, 0, 0, 0, 0);
         }
     }

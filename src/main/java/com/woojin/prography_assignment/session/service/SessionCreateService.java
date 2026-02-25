@@ -28,10 +28,10 @@ public class SessionCreateService {
 
     @Transactional
     public SessionResponse createSession(SessionCreateRequest request) {
-        Cohort cohort = findCurrentCohort();
+        Cohort currentCohort = findCurrentCohort();
 
         Session session = Session.create(
-                cohort,
+                currentCohort,
                 request.title(),
                 request.location(),
                 request.date(),
