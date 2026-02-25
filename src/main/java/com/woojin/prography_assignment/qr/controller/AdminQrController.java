@@ -8,23 +8,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/admin/sessions")
+@RequestMapping("/api/v1/admin")
 public class AdminQrController {
 
     private final QrService qrService;
 
-    @PostMapping("/{sessionId}/qrcodes")
+    @PostMapping("/sessions/{sessionId}/qrcodes")
     public ResponseEntity<ApiResponse<QrResponse>> createQrCode(@PathVariable Long sessionId) {
 
         QrResponse response = qrService.createQrcode(sessionId);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
+                .body(ApiResponse.success(response));
+    }
+
+    @PutMapping("/qrcodes/{qrCodeId}")
+    public ResponseEntity<ApiResponse<QrResponse>> renewQrCode(@PathVariable Long qrCodeId) {
+
+        QrResponse response = qrService.renewQrcode(qrCodeId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
                 .body(ApiResponse.success(response));
     }
 }

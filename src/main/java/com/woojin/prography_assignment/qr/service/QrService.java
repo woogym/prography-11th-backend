@@ -35,6 +35,17 @@ public class QrService {
         return QrResponse.from(qrCode, session);
     }
 
+    @Transactional
+    public QrResponse renewQrcode(Long id) {
+        QrCode qrCode = findQrCodeById(id);
+        Session session = findSessionByQrCodeId(id);
+
+        qrCode.expire();
+        qrCode.renew();
+
+        return QrResponse.from(qrCode, session);
+    }
+
     private Session findSessionById(Long sessionId) {
         return sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.SESSION_NOT_FOUND,
@@ -48,5 +59,17 @@ public class QrService {
         if (activeQr.isPresent()) {
             throw new ActiveQRAlreadyExistsException();
         }
+    }
+
+    private Session findSessionByQrCodeId(Long qrCodeId) {
+        return sessionRepository.findSessionByQrCodeId(qrCodeId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.SESSION_NOT_FOUND,
+                        "qr코드에 해당하는 일정이 없습니다"));
+    }
+
+    private QrCode findQrCodeById(Long qrCodeId) {
+        return qrRepository.findById(qrCodeId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.QR_NOT_FOUND,
+                        ErrorCode.QR_NOT_FOUND.getMessage()));
     }
 }

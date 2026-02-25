@@ -46,4 +46,7 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
         order by s.date desc , s.time desc
 """)
     List<SessionResponseForMember> findSessionsSummariesByCohortId(@Param("cohortId") Long cohortId);
+
+    @Query("select q.session from QrCode q where q.id = :qrCodeId")
+    Optional<Session> findSessionByQrCodeId(@Param("qrCodeId") Long qrCodeId);
 }
