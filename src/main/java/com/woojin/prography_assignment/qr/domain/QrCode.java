@@ -44,16 +44,21 @@ public class QrCode extends BaseTimeEntity {
 
     private static final int EXPIRATION_HOURS = 24;
 
-    private QrCode(Session session, Instant now) {
+    private QrCode(Session session) {
         validateSessionIsNotNull(session);
 
         this.session = session;
         this.hashValue = generateHashValue();
-        this.expiresAt = now.plus(EXPIRATION_HOURS, ChronoUnit.HOURS);
+        renew();
     }
 
     public static QrCode create(Session session) {
-        return new QrCode(session, Instant.now());
+        return new QrCode(session);
+    }
+
+    public void renew() {
+        this.expiresAt = Instant.now()
+                .plus(EXPIRATION_HOURS, ChronoUnit.HOURS);
     }
 
     public boolean isActive() {
