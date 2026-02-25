@@ -39,7 +39,7 @@ public class SessionCreateService {
         );
         sessionRepository.save(session);
 
-        QrCode qrCode = QrCode.create(session, Instant.now());
+        QrCode qrCode = QrCode.create(session);
         qrRepository.save(qrCode);
 
         return SessionResponseForAdmin.from(session, true);
