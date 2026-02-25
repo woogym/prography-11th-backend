@@ -4,12 +4,11 @@ import com.woojin.prography_assignment.cohort.domain.Cohort;
 import com.woojin.prography_assignment.cohort.domain.Part;
 import com.woojin.prography_assignment.cohort.domain.Team;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public record CohortDetailResponse(
         Long id,
-        Integer Generation,
+        Integer generation,
         String name,
         List<PartSummary> parts,
         List<TeamSummary> teams,
