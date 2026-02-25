@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class SessionService {
+public class SessionCreateService {
 
     private final SessionRepository sessionRepository;
     private final QrRepository qrRepository;
