@@ -20,5 +20,15 @@ public interface QrRepository extends JpaRepository<QrCode, Long> {
     List<Long> findSessionIdsWithActiveQr(@Param("sessionIds") List<Long> sessionIds,
                                           @Param("now") Instant now);
 
+    @Query("""
+        SELECT qr
+        FROM QrCode qr
+        WHERE qr.session.id = :sessionId
+        AND qr.expiresAt > :now
+        ORDER BY qr.createdAt DESC
+        """)
+    Optional<QrCode> findActiveQrCodeBySessionId(@Param("sessionId") Long sessionId,
+                                                 @Param("now") Instant now);
+
     Optional<QrCode> findBySessionId(Long id);
 }

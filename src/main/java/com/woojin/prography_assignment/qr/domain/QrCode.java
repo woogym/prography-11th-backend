@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -31,7 +32,7 @@ public class QrCode extends BaseTimeEntity {
     @Column(name = "qr_code_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "session_id", nullable = false, foreignKey = @ForeignKey(name = "fk_qr_code_session"))
     private Session session;
 
@@ -45,7 +46,6 @@ public class QrCode extends BaseTimeEntity {
 
     private QrCode(Session session, Instant now) {
         validateSessionIsNotNull(session);
-        validateQrAlreadyActive();
 
         this.session = session;
         this.hashValue = generateHashValue();
@@ -80,12 +80,6 @@ public class QrCode extends BaseTimeEntity {
     private void validateSessionIsNotNull(Session session) {
         if (session == null) {
             throw new InvalidInputException(ErrorCode.INVALID_INPUT, "일정은 필수입니다");
-        }
-    }
-
-    private void validateQrAlreadyActive() {
-        if (isActive()) {
-            throw new ActiveQRAlreadyExistsException();
         }
     }
 }
