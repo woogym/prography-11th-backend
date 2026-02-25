@@ -32,6 +32,9 @@ public class Session extends BaseTimeEntity {
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
+    @Column(name = "location", nullable = false)
+    private String location;
+
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
@@ -45,13 +48,15 @@ public class Session extends BaseTimeEntity {
     private Session(
             Cohort cohort,
             String title,
+            String location,
             LocalDate date,
             LocalTime time
     ) {
-        validateCreation(cohort, title, date, time);
+        validateCreation(cohort, title, location, date, time);
 
         this.cohort = cohort;
         this.title = title;
+        this.location = location;
         this.date = date;
         this.time = time;
         this.status = SessionStatus.SCHEDULED;
@@ -60,19 +65,22 @@ public class Session extends BaseTimeEntity {
     public static Session create(
             Cohort cohort,
             String title,
+            String location,
             LocalDate date,
             LocalTime time
     ) {
-        return new Session(cohort, title, date, time);
+        return new Session(cohort, title, location, date, time);
     }
 
-    public void update(String title, LocalDate date, LocalTime time) {
+    public void update(String title, String location, LocalDate date, LocalTime time) {
         validateNotCancelled();
         validateTitle(title);
+        validateLocation(location);
         validateDate(date);
         validateTime(time);
 
         this.title = title;
+        this.location = location;
         this.date = date;
         this.time = time;
     }
@@ -122,11 +130,16 @@ public class Session extends BaseTimeEntity {
         return this.status == SessionStatus.CANCELLED;
     }
 
-    private void validateCreation(Cohort cohort, String title, LocalDate date, LocalTime time) {
+    private void validateCreation(Cohort cohort,
+                                  String title,
+                                  String location,
+                                  LocalDate date,
+                                  LocalTime time) {
         if (cohort == null) {
             throw new InvalidInputException(ErrorCode.INVALID_INPUT, "기수 입력은 필수입니다.");
         }
         validateTitle(title);
+        validateLocation(location);
         validateDate(date);
         validateTime(time);
     }
@@ -137,6 +150,12 @@ public class Session extends BaseTimeEntity {
         }
         if (title.length() > 100) {
             throw new InvalidInputException(ErrorCode.INVALID_INPUT, "일정 제목은 100자를 초과할 수 없습니다");
+        }
+    }
+
+    private void validateLocation(String location) {
+        if (location == null || location.isBlank()) {
+            throw new InvalidInputException(ErrorCode.INVALID_INPUT, "장소는 필수입니다");
         }
     }
 
