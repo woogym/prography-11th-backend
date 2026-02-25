@@ -42,7 +42,7 @@ public class SessionCreateService {
         QrCode qrCode = QrCode.create(session);
         qrRepository.save(qrCode);
 
-        return SessionResponseForAdmin.from(session, true);
+        return SessionResponseForAdmin.from(session, qrCode.isActive());
     }
 
     private Cohort findCurrentCohort() {
