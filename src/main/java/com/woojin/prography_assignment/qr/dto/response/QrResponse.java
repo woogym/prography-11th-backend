@@ -17,7 +17,7 @@ public record QrResponse(
                 qrCode.getId(),
                 session.getId(),
                 qrCode.getHashValue(),
-                qrCode.getCreatedAt(),
+                qrCode.getModifiedAt(),
                 qrCode.getExpiresAt()
         );
     }
