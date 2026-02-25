@@ -9,7 +9,7 @@ import com.woojin.prography_assignment.qr.domain.QrCode;
 import com.woojin.prography_assignment.qr.repository.QrRepository;
 import com.woojin.prography_assignment.session.domain.Session;
 import com.woojin.prography_assignment.session.dto.request.SessionCreateRequest;
-import com.woojin.prography_assignment.session.dto.response.SessionResponse;
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
 import com.woojin.prography_assignment.session.repository.SessionRepository;
 import java.time.Instant;
 import lombok.AccessLevel;
@@ -27,7 +27,7 @@ public class SessionCreateService {
     private final CohortProperties cohortProperties;
 
     @Transactional
-    public SessionResponse createSession(SessionCreateRequest request) {
+    public SessionResponseForAdmin createSession(SessionCreateRequest request) {
         Cohort currentCohort = findCurrentCohort();
 
         Session session = Session.create(
@@ -42,7 +42,7 @@ public class SessionCreateService {
         QrCode qrCode = QrCode.create(session, Instant.now());
         qrRepository.save(qrCode);
 
-        return SessionResponse.from(session, true);
+        return SessionResponseForAdmin.from(session, true);
     }
 
     private Cohort findCurrentCohort() {

@@ -1,6 +1,6 @@
 package com.woojin.prography_assignment.attendance.dto;
 
-import com.woojin.prography_assignment.session.dto.response.SessionResponse;
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
 
 public record AttendanceSummaryDto(
         Long present,
@@ -14,8 +14,8 @@ public record AttendanceSummaryDto(
         return new AttendanceSummaryDto(0L, 0L, 0L, 0L, 0L);
     }
 
-    public SessionResponse.AttendanceSummary toResponse() {
-        return new SessionResponse.AttendanceSummary(
+    public SessionResponseForAdmin.AttendanceSummary toResponse() {
+        return new SessionResponseForAdmin.AttendanceSummary(
                 present.intValue(),
                 absent.intValue(),
                 late.intValue(),

@@ -12,7 +12,7 @@ import com.woojin.prography_assignment.common.exception.model.EntityNotFoundExce
 import com.woojin.prography_assignment.qr.repository.QrRepository;
 import com.woojin.prography_assignment.session.domain.Session;
 import com.woojin.prography_assignment.session.domain.SessionStatus;
-import com.woojin.prography_assignment.session.dto.response.SessionResponse;
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
 import com.woojin.prography_assignment.session.repository.SessionRepository;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,9 +36,10 @@ public class SessionRetrieveService {
     private final CohortRepository cohortRepository;
     private final CohortProperties cohortProperties;
 
-    public List<SessionResponse> getSessionsForAdmin(LocalDate dateFrom,
-                                                     LocalDate dateTo,
-                                                     SessionStatus status) {
+    @Transactional(readOnly = true)
+    public List<SessionResponseForAdmin> getSessionsForAdmin(LocalDate dateFrom,
+                                                             LocalDate dateTo,
+                                                             SessionStatus status) {
 
         Cohort currentCohort = findCurrentCohort();
         List<Session> sessions = sessionRepository.findSessionsWithFilters(
@@ -62,7 +64,9 @@ public class SessionRetrieveService {
                 .toList();
     }
 
-    private SessionResponse toResponse(
+    public
+
+    private SessionResponseForAdmin toResponse(
             Session session,
             Map<Long, AttendanceSummaryDto> summaryMap,
             Set<Long> activeQrSessionIds
@@ -74,7 +78,7 @@ public class SessionRetrieveService {
 
         boolean qrActive = activeQrSessionIds.contains(session.getId());
 
-        return SessionResponse.from(session, summary.toResponse(), qrActive);
+        return SessionResponseForAdmin.from(session, summary.toResponse(), qrActive);
     }
 
     private Map<Long, AttendanceSummaryDto> getAttendanceSummaries(List<Long> sessionIds) {

@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public record SessionResponse(
+public record SessionResponseForAdmin(
         Long id,
         Long cohortId,
         String title,
@@ -21,8 +21,8 @@ public record SessionResponse(
         Instant updatedAt
 ) {
 
-    public static SessionResponse from(Session session, boolean qrActive) {
-        return new SessionResponse(
+    public static SessionResponseForAdmin from(Session session, boolean qrActive) {
+        return new SessionResponseForAdmin(
                 session.getId(),
                 session.getCohort().getId(),
                 session.getTitle(),
@@ -37,8 +37,8 @@ public record SessionResponse(
         );
     }
 
-    public static SessionResponse from(Session session, AttendanceSummary summary, boolean qrActive) {
-        return new SessionResponse(
+    public static SessionResponseForAdmin from(Session session, AttendanceSummary summary, boolean qrActive) {
+        return new SessionResponseForAdmin(
                 session.getId(),
                 session.getCohort().getId(),
                 session.getTitle(),

@@ -3,7 +3,7 @@ package com.woojin.prography_assignment.session.controller;
 import com.woojin.prography_assignment.common.dto.ApiResponse;
 import com.woojin.prography_assignment.session.domain.SessionStatus;
 import com.woojin.prography_assignment.session.dto.request.SessionCreateRequest;
-import com.woojin.prography_assignment.session.dto.response.SessionResponse;
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
 import com.woojin.prography_assignment.session.service.SessionCreateService;
 import com.woojin.prography_assignment.session.service.SessionRetrieveService;
 import jakarta.validation.Valid;
@@ -29,17 +29,17 @@ public class AdminSessionController {
     private final SessionRetrieveService sessionRetrieveService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<SessionResponse>> createSession(
+    public ResponseEntity<ApiResponse<SessionResponseForAdmin>> createSession(
             @Valid @RequestBody SessionCreateRequest request
     ) {
-        SessionResponse response = sessionCreateService.createSession(request);
+        SessionResponseForAdmin response = sessionCreateService.createSession(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success(response));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<SessionResponse>>> getSessions(
+    public ResponseEntity<ApiResponse<List<SessionResponseForAdmin>>> getSessions(
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate dateFrom,
@@ -51,7 +51,7 @@ public class AdminSessionController {
             @RequestParam(required = false)
             SessionStatus status
     ) {
-        List<SessionResponse> response = sessionRetrieveService.getSessionsForAdmin(dateFrom, dateTo, status);
+        List<SessionResponseForAdmin> response = sessionRetrieveService.getSessionsForAdmin(dateFrom, dateTo, status);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 }
