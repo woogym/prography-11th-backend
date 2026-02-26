@@ -170,7 +170,7 @@ http://localhost:8080/h2-console
 
 ## 시스템 아키텍처
 
-이상적인 프로덕션 환경 아키텍처는 다음 문서를 참고하세요:
+이상적인 시스템 디자인 아키텍처는 다음 문서를 참고해주세요.
 
 📄 [System Design Architecture](docs/SDA.md)
 
