@@ -90,11 +90,6 @@ public class Member extends BaseTimeEntity {
         }
     }
 
-    public void changePassword(String encodedPassword) {
-        validatePassword(encodedPassword);
-        this.password = encodedPassword;
-    }
-
     public void withdraw() {
         if (isWithdraw()) {
             throw new BusinessException(ErrorCode.MEMBER_ALREADY_WITHDRAWN,
