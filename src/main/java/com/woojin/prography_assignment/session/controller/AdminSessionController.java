@@ -1,10 +1,10 @@
 package com.woojin.prography_assignment.session.controller;
 
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
 import com.woojin.prography_assignment.common.dto.ApiResponse;
 import com.woojin.prography_assignment.session.domain.SessionStatus;
 import com.woojin.prography_assignment.session.dto.request.SessionCreateRequest;
 import com.woojin.prography_assignment.session.dto.request.SessionUpdateRequest;
-import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
 import com.woojin.prography_assignment.session.service.SessionCreateService;
 import com.woojin.prography_assignment.session.service.SessionRetrieveService;
 import com.woojin.prography_assignment.session.service.SessionUpdateService;
@@ -17,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;

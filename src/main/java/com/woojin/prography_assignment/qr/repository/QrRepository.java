@@ -1,7 +1,6 @@
 package com.woojin.prography_assignment.qr.repository;
 
 import com.woojin.prography_assignment.qr.domain.QrCode;
-import com.woojin.prography_assignment.session.domain.Session;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;

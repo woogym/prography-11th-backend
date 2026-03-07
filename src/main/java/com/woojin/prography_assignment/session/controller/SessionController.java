@@ -1,7 +1,7 @@
 package com.woojin.prography_assignment.session.controller;
 
-import com.woojin.prography_assignment.common.dto.ApiResponse;
 import com.woojin.prography_assignment.session.dto.response.SessionResponseForMember;
+import com.woojin.prography_assignment.common.dto.ApiResponse;
 import com.woojin.prography_assignment.session.service.SessionRetrieveService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

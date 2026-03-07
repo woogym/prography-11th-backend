@@ -2,7 +2,6 @@ package com.woojin.prography_assignment.qr.service;
 
 import com.woojin.prography_assignment.common.exception.ErrorCode;
 import com.woojin.prography_assignment.common.exception.model.ActiveQRAlreadyExistsException;
-import com.woojin.prography_assignment.common.exception.model.BusinessException;
 import com.woojin.prography_assignment.common.exception.model.EntityNotFoundException;
 import com.woojin.prography_assignment.qr.domain.QrCode;
 import com.woojin.prography_assignment.qr.dto.response.QrResponse;
@@ -11,7 +10,6 @@ import com.woojin.prography_assignment.session.domain.Session;
 import com.woojin.prography_assignment.session.repository.SessionRepository;
 import java.time.Instant;
 import java.util.Optional;
-import javax.swing.text.html.Option;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

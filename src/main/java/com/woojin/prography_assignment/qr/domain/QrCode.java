@@ -2,7 +2,6 @@ package com.woojin.prography_assignment.qr.domain;
 
 import com.woojin.prography_assignment.common.BaseTimeEntity;
 import com.woojin.prography_assignment.common.exception.ErrorCode;
-import com.woojin.prography_assignment.common.exception.model.ActiveQRAlreadyExistsException;
 import com.woojin.prography_assignment.common.exception.model.InvalidInputException;
 import com.woojin.prography_assignment.session.domain.Session;
 import jakarta.persistence.Column;
@@ -14,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;

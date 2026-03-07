@@ -1,5 +1,7 @@
 package com.woojin.prography_assignment.session.service;
 
+import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
+import com.woojin.prography_assignment.session.repository.SessionRepository;
 import com.woojin.prography_assignment.cohort.config.CohortProperties;
 import com.woojin.prography_assignment.cohort.domain.Cohort;
 import com.woojin.prography_assignment.cohort.repository.CohortRepository;
@@ -9,9 +11,6 @@ import com.woojin.prography_assignment.qr.domain.QrCode;
 import com.woojin.prography_assignment.qr.repository.QrRepository;
 import com.woojin.prography_assignment.session.domain.Session;
 import com.woojin.prography_assignment.session.dto.request.SessionCreateRequest;
-import com.woojin.prography_assignment.session.dto.response.SessionResponseForAdmin;
-import com.woojin.prography_assignment.session.repository.SessionRepository;
-import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
